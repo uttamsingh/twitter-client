@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		700A1FF99EB92F029F32CEBA /* Pods_Tumblr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DE3D4D994018ECD71DCB30 /* Pods_Tumblr.framework */; };
 		9E0285461E8E01B800295819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0285451E8E01B800295819 /* AppDelegate.swift */; };
-		9E0285481E8E01B800295819 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0285471E8E01B800295819 /* ViewController.swift */; };
 		9E02854B1E8E01B800295819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E0285491E8E01B800295819 /* Main.storyboard */; };
 		9E02854D1E8E01B800295819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E02854C1E8E01B800295819 /* Assets.xcassets */; };
 		9E0285501E8E01B800295819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E02854E1E8E01B800295819 /* LaunchScreen.storyboard */; };
+		9E02855B1E8E0C2B00295819 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02855A1E8E0C2B00295819 /* PhotosViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,11 +20,11 @@
 		90DE3D4D994018ECD71DCB30 /* Pods_Tumblr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tumblr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E0285421E8E01B800295819 /* Tumblr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tumblr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E0285451E8E01B800295819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E0285471E8E01B800295819 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E02854A1E8E01B800295819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E02854C1E8E01B800295819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E02854F1E8E01B800295819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E0285511E8E01B800295819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E02855A1E8E0C2B00295819 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		AB0FB1B476E2C3D6A0189C1D /* Pods-Tumblr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblr/Pods-Tumblr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,14 +69,22 @@
 		9E0285441E8E01B800295819 /* Tumblr */ = {
 			isa = PBXGroup;
 			children = (
+				9E0285591E8E0BE900295819 /* View Controllers */,
 				9E0285451E8E01B800295819 /* AppDelegate.swift */,
-				9E0285471E8E01B800295819 /* ViewController.swift */,
 				9E0285491E8E01B800295819 /* Main.storyboard */,
 				9E02854C1E8E01B800295819 /* Assets.xcassets */,
 				9E02854E1E8E01B800295819 /* LaunchScreen.storyboard */,
 				9E0285511E8E01B800295819 /* Info.plist */,
 			);
 			path = Tumblr;
+			sourceTree = "<group>";
+		};
+		9E0285591E8E0BE900295819 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9E02855A1E8E0C2B00295819 /* PhotosViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		F460F1156E6B0E388AB239F2 /* Pods */ = {
@@ -211,8 +219,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E0285481E8E01B800295819 /* ViewController.swift in Sources */,
 				9E0285461E8E01B800295819 /* AppDelegate.swift in Sources */,
+				9E02855B1E8E0C2B00295819 /* PhotosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +388,7 @@
 				9E0285561E8E01B800295819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
