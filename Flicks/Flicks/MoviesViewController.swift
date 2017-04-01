@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -15,13 +16,30 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     var movies: [NSDictionary] = []
     var endPoint :String!
+    var refreshControl: UIRefreshControl!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Initialize a UIRefreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        
+        // add refresh control to table view
+        tableView.insertSubview(refreshControl, at: 0)
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
+        callMovieAPI()
+    }
 
+    func callMovieAPI(){
+        //Starting progress bar
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
         let baseUrl = "https://api.themoviedb.org/3/movie/"
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string : baseUrl + endPoint + "?api_key=\(apiKey)")
@@ -40,14 +58,27 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                         with: data, options:[]) as? NSDictionary {
                         print(responseDictionary)
                         self.movies =
-                                responseDictionary["results"] as! [NSDictionary]
+                            responseDictionary["results"] as! [NSDictionary]
+                        
                         self.tableView.reloadData()
+                        
+                        //Stop progress
+                        MBProgressHUD.hide(for: self.view, animated: true)
                     }
                 }
         });
         task.resume()
     }
-
+    
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        print("Refreshing data...")
+        callMovieAPI()
+        refreshControl.endRefreshing()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
