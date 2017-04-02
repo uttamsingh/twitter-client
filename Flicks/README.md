@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![alt tag]('http://imgur.com/tvcqZ05')
+![alt tag]('https://github.com/uttamsingh/ios-learning-apps/blob/master/Flicks/flicks.gif')
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
