@@ -10,8 +10,9 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
@@ -19,7 +20,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     var movies: [NSDictionary] = []
     var endPoint :String!
     var refreshControl: UIRefreshControl!
-
+    var filteredData: [NSDictionary] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +28,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Initialize a UIRefreshControl
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        let refreshTitleAttr = [NSForegroundColorAttributeName: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes:refreshTitleAttr)
         
         // add refresh control to table view
         tableView.insertSubview(refreshControl, at: 0)
         
-        
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
+        
         
         callMovieAPI()
     }
@@ -97,6 +101,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         task.resume()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+       self.movies = filteredData.filter {
+            String(describing: $0["title"]).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        self.tableView.reloadData()
+    }
+    
     // Makes a network request to get updated data
     // Updates the tableView with the new data
     // Hides the RefreshControl
@@ -136,7 +147,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -151,8 +161,5 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let detailViewController = segue.destination as! DetailViewController
         
         detailViewController.movie = movie
-        
     }
-    
-
 }
