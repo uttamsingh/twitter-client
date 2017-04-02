@@ -27,6 +27,10 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://github.com/uttamsingh/ios-learning-apps/blob/master/Flicks/flicks.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+Here's a walkthrough of incomplete user stories - search:
+
+<img src='https://github.com/uttamsingh/ios-learning-apps/blob/master/Flicks/flicks_search.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
