@@ -102,10 +102,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       self.movies = filteredData.filter {
+        self.filteredData = self.movies
+        self.movies = self.filteredData.filter {
             String(describing: $0["title"]).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
         self.tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
     }
     
     // Makes a network request to get updated data
