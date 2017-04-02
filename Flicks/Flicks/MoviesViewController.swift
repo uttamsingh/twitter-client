@@ -22,6 +22,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Check network connections before loading movie
+        checkNetworkConnections()
+        
         // Initialize a UIRefreshControl
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
@@ -36,6 +39,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         callMovieAPI()
     }
 
+    func checkNetworkConnections(){
+        if Reachability.isConnectedToNetwork() == true
+        {
+            print("Internet Connection Available!")
+        }
+        else
+        {
+            print("Internet Connection not Available!")
+        }
+        
+    }
     func callMovieAPI(){
         //Starting progress bar
         MBProgressHUD.showAdded(to: self.view, animated: true)
