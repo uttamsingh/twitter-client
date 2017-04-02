@@ -21,11 +21,12 @@ The following **optional** features are implemented:
 - [ ] Customize the navigation bar.
 
 
-## Video Walkthrough
+## Walkthrough of app using Table View
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://imgur.com/tvcqZ05' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![alt tag]('http://imgur.com/tvcqZ05')
+
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
