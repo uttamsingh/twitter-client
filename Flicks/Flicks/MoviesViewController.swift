@@ -13,6 +13,8 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var errorLabel: UILabel!
     
     var movies: [NSDictionary] = []
     var endPoint :String!
@@ -22,9 +24,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Check network connections before loading movie
-        checkNetworkConnections()
-        
         // Initialize a UIRefreshControl
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
@@ -43,16 +42,30 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if Reachability.isConnectedToNetwork() == true
         {
             print("Internet Connection Available!")
+            errorView.isHidden = true
+            tableView.isHidden = false
         }
         else
         {
             print("Internet Connection not Available!")
+            errorView.isHidden = false
+            
+            let screenSize: CGRect = UIScreen.main.bounds
+            errorView.frame = CGRect(x: 0, y: 65, width: screenSize.width, height: 44)
+            
+            tableView.isHidden = true
+            errorLabel.textAlignment = .center
+            errorLabel.text = "Network Error"
+            MBProgressHUD.hide(for: self.view, animated: false)
         }
-        
     }
     func callMovieAPI(){
         //Starting progress bar
         MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        //Check network connections before loading movie
+        checkNetworkConnections()
+
         
         let baseUrl = "https://api.themoviedb.org/3/movie/"
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
