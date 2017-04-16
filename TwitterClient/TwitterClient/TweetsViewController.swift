@@ -42,12 +42,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   
   @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
     TwitterClient.sharedInstance?.logout()
-    self.performSegue(withIdentifier: "TweetsToLoginVCSegue", sender: nil)
+    self.performSegue(withIdentifier: Constants.tweetsToLoginVCSegue, sender: nil)
   }
   
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "tweetsToDetailSegue" {
+    if segue.identifier == Constants.tweetsToDetailSegue {
       let cell = sender! as! UITableViewCell
       let indexPath = tableView.indexPath(for: cell)
       let tweet = self.tweets[indexPath!.row]
@@ -56,14 +56,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
       detailVC.tweet = tweet
       
     }
-//    else if segue.identifier == "tweetsToOtherProfileVCSegue" {
-//      let userButton = sender! as! UIButton
-//      let tweet = tweets[userButton.tag]
-//      
-//      let nav = segue.destination as! UINavigationController     // avoids "could not cast value of type UINavCTRLr to xViewCTRLr" errors
-//      let otherProfileVC = nav.topViewController as! OtherProfileViewController
-//      otherProfileVC.tweet = tweet
-//    }
   }
   
   
@@ -105,7 +97,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
   
     @IBAction func onNewButtonTap(_ sender: Any) {
-        self.performSegue(withIdentifier: "NewTweetsSegue", sender: nil)
+        self.performSegue(withIdentifier: Constants.newTweetsSegue, sender: nil)
     }
     
 }

@@ -36,23 +36,32 @@ class ReplyViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func onClearTextButtonTap(_ sender: Any) {
+        resetFields()
+    }
+    
+    func resetFields() {
         replyTextView.text = Constants.emptyString
         countDownText.text = String(maxTweetCount)
     }
     
+    
     @IBAction func onSendReplyTap(_ sender: Any) {
         if replyTextView.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) != "" {
-            TwitterClient.sharedInstance?.POST(tweetText: replyTextView.text, success: {
-                print("Tweet posted to timeline!")
-                self.dismiss(animated: true, completion: nil)
-                
-            }) { (error) in
+            TwitterClient.sharedInstance?.postReplyTweet(postText: replyTextView.text! as NSString, inReplyToString: tweet.id_str!, success: {
+                self.resetFields()
+                self.navigationController?.popViewController(animated: true)
+            }, failure: { (error) in
                 print (error)
-                print ("unable to post tweet!")
-            }
+                print ("unable to reply tweet!")
+            })
         } else {
             print("Nothing to tweet")
         }
     }
-    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailVC = segue.destination as! DetailViewController
+        detailVC.tweet = tweet
+        print("Does it really come")
+    }
 }

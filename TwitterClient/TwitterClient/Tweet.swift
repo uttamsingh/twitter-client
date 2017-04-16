@@ -22,8 +22,10 @@ class Tweet: NSObject {
   var retweetedStatus: Tweet?
   var faved: Bool?
   var timestamp: Date?
+  var timestampStr: Date?
   var timeAgo: String?
   var id_str: String?
+  var in_reply_to_status_id: String?
   
   var detailTimeStamp: String?
   var rtStatus: NSDictionary?
@@ -36,6 +38,8 @@ class Tweet: NSObject {
     faved = (dictionary["favorited"] as? Bool) ?? false
     favCount = (dictionary["favorite_count"] as? Int) ?? 0
     id_str = dictionary["id_str"] as? String
+    in_reply_to_status_id = dictionary["in_reply_to_status_id"] as? String
+
     //retweeted_status = (dictionary["retweeted_status"] as? Tweet) ?? false
     
     // tweet poster
@@ -60,6 +64,7 @@ class Tweet: NSObject {
       let formatter = DateFormatter()
       formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
       timestamp = formatter.date(from: timestampString)
+      formatter.dateFormat = "MM/dd/yy H:mm a"
       detailTimeStamp = formatter.string(from: timestamp!)
       timeAgo = Date().shortTimeAgo(since: timestamp!)
     }

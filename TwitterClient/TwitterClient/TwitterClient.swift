@@ -110,6 +110,14 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
+    func postReplyTweet (postText: NSString, inReplyToString: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/update.json", parameters: ["status": postText, "in_reply_to_status_id": inReplyToString], progress: nil, success: { (_: URLSessionDataTask, response: Any?) -> Void in
+            success()
+        }, failure: { (_: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
 
   func retweet (tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
     post("/1.1/statuses/retweet/" + tweet.id_str! + ".json", parameters: nil, progress: nil, success: { (_: URLSessionDataTask, response: Any?) -> Void in
@@ -120,21 +128,17 @@ class TwitterClient: BDBOAuth1SessionManager {
       failure(error)
     })
   }
- 
-  /*
-  func unretweet (tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-    if tweet.retweeted {
-      post("/1.1/statuses/unretweet/" + tweet.id_str! + ".json", parameters: nil, progress: nil, success: {(_: URLSessionDataTask, response: Any?) -> Void in
-        
-        var initial_id: String?
-
-        initial_id = (tweet.retweetedStatus != nil) ? tweet.id_str : tweet.retweetedStatus?.id_str
-        
-        let dictionary
-      )
+    
+    func unretweet (tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        post("/1.1/statuses/unretweet/" + tweet.id_str! + ".json", parameters: nil, progress: nil, success: { (_: URLSessionDataTask, response: Any?) -> Void in
+            let dictionary = response as? NSDictionary
+            let tweet = Tweet(dictionary: dictionary!)
+            success(tweet)
+        }, failure: { (_: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
     }
-  }*/
-  
+ 
   
   func favorite (tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
     post("1.1/favorites/create.json", parameters: ["id": tweet.id_str!], progress: nil, success: {(_: URLSessionDataTask, response: Any?) -> Void in
@@ -145,6 +149,16 @@ class TwitterClient: BDBOAuth1SessionManager {
       failure(error)
     })
   }
+  
+    func unfavorite (tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/favorites/destroy.json", parameters: ["id": tweet.id_str!], progress: nil, success: {(_: URLSessionDataTask, response: Any?) -> Void in
+            let dictionary = response as? NSDictionary
+            let tweet = Tweet(dictionary: dictionary!)
+            success(tweet)
+        }, failure: { (_: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
   
   
   func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
@@ -171,21 +185,6 @@ class TwitterClient: BDBOAuth1SessionManager {
       _ = UIApplication.shared.openURL(_url)
     }
   }
-  
-  
-  // only useful if userTimelineSearchSettings involves a lot and is called from multiple places
-  
-  /* func queryParams(_ settings: UserTimelineSearchSettings) -> String {
-   var params: String = ""
-   if let screenname = settings.screenname {
-   params = "?screen_name=" + screenname
-   }
-   if let tweetCount = settings.tweetCount {
-   params = params + "count=" + "\(tweetCount)"
-   }
-   
-   return params
-   }*/
 }
 
 

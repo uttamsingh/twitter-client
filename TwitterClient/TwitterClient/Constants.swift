@@ -13,9 +13,15 @@ struct Constants {
     static let loginSegue = "loginSegue"
     static let currentUserKey = "currentUser"
     static let tweetsNavigationController = "TweetsNavigationController"
+    static let detailViewController = "DetailViewController"
     static let mainStoryBoard = "Main"
     static let tweetCellIdentifier = "TweetCell"
     static let maxTweetCount = 140
     static let emptyString = ""
     static let replySegue = "replySegue"
+    static let tweetsToDetailSegue = "tweetsToDetailSegue"
+    static let replySegueFromTableViewCell = "replySegueFromTableViewCell"
+    static let tweetsToLoginVCSegue = "TweetsToLoginVCSegue"
+    static let newTweetsSegue = "NewTweetsSegue"
+    
 }
