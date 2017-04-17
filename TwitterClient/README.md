@@ -23,7 +23,6 @@ The following **required** functionality is completed:
 - [x] Optional: User should be able to unretweet and unfavorite and should decrement the retweet and favorite count. Refer to this guide for help on implementing unretweeting - in tweet details page it's done but in reply page yet to be done'
 - [x] Optional: Replies should be prefixed with the username and the reply_id should be set when posting the tweet
 
-
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. How to open a reply segway once clicked in table view cell 
