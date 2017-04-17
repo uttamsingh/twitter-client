@@ -18,7 +18,6 @@ The following **required** functionality is completed:
 - [x] User can compose a new tweet by tapping on a compose button.
 - [x] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
 - [x] Optional: When composing, you should have a countdown in the upper right for the tweet limit - instead of upper right I have in below the textview
-- [] Optional: After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network
 - [x] Optional: Retweeting and favoriting should increment the retweet and favorite count.
 - [x] Optional: User should be able to unretweet and unfavorite and should decrement the retweet and favorite count. Refer to this guide for help on implementing unretweeting - in tweet details page it's done but in reply page yet to be done'
 - [x] Optional: Replies should be prefixed with the username and the reply_id should be set when posting the tweet
