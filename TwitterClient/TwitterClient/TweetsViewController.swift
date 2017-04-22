@@ -9,13 +9,12 @@
 import UIKit
 import AFNetworking
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , SideBarDelegate{
   
   @IBOutlet weak var tableView: UITableView!
-  
+  var sideBar: SideBar = SideBar()
+    
   var tweets: [Tweet]!
-  
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     // initialize tableView
@@ -37,6 +36,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Add refreshControl to tableView
     tableView.insertSubview(refreshControl, at: 0)
+    
+    
+    sideBar = SideBar(sourceView: self.view, menuItems: Constants.menuItems)
+    sideBar.delegate = self
   }
   
   
@@ -100,6 +103,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.performSegue(withIdentifier: Constants.newTweetsSegue, sender: nil)
     }
     
+    func sideBarDidSelectButtonAtIndex(index: Int) {
+        NavigationUtils.navigate(index: index, viewController: self)
+    }
 }
-
 

@@ -12,16 +12,44 @@ struct Constants {
     
     static let loginSegue = "loginSegue"
     static let currentUserKey = "currentUser"
+    
+    
+    // View Controllers
     static let tweetsNavigationController = "TweetsNavigationController"
     static let detailViewController = "DetailViewController"
+    static let tweetsViewController = "TweetsViewController"
+    static let profileViewController = "ProfileViewController"
+    static let mentionseViewController = "MentionsViewController"
+    static let accountViewController = "AccountViewController"
+    
+    // Storyboard
     static let mainStoryBoard = "Main"
+ 
+    // Tableview Cell
+    static let replySegueFromTableViewCell = "replySegueFromTableViewCell"
     static let tweetCellIdentifier = "TweetCell"
+ 
     static let maxTweetCount = 140
     static let emptyString = ""
+    static let sideBarBoundary = "sideBarBoundary"
+    
+    // Segue
     static let replySegue = "replySegue"
     static let tweetsToDetailSegue = "tweetsToDetailSegue"
-    static let replySegueFromTableViewCell = "replySegueFromTableViewCell"
     static let tweetsToLoginVCSegue = "TweetsToLoginVCSegue"
     static let newTweetsSegue = "NewTweetsSegue"
+
     
+    // Icon and navigation constants
+    static let home:String = "Home"
+    static let profile:String = "Profile"
+    static let mentions:String = "Mentions"
+    static let account:String = "Account"
+
+    static let homeIcon:String = "home-icon"
+    static let profileIcon:String = "profile-icon"
+    static let mentionsIcon:String = "mentions-icon"
+    static let accountIcon:String = "account-icon"
+    
+    static let menuItems:Array<String> = [String](arrayLiteral: Constants.home, Constants.profile, Constants.mentions, Constants.account)
 }
