@@ -19,6 +19,7 @@ class AccountViewController: UIViewController , SideBarDelegate{
         
         sideBar = SideBar(sourceView: self.view, menuItems: Constants.menuItems)
         sideBar.delegate = self
+        self.view.backgroundColor = UIColor.white
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,4 +42,8 @@ class AccountViewController: UIViewController , SideBarDelegate{
         NavigationUtils.navigate(index: index, viewController: self)
     }
     
+    @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
+        TwitterClient.sharedInstance?.logout()
+        self.performSegue(withIdentifier: Constants.tweetsToLoginVCSegue, sender: nil)
+    }
 }
