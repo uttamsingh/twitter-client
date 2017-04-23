@@ -9,37 +9,37 @@
 import UIKit
 import AFNetworking
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , SideBarDelegate{
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , SideBarDelegate, TweetCellDelegate {
+    @IBOutlet weak var tableView: UITableView!
+
+    var sideBar: SideBar = SideBar()
+    var tweets: [Tweet]!
+    var profileUser:User?
   
-  @IBOutlet weak var tableView: UITableView!
-  var sideBar: SideBar = SideBar()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // initialize tableView
+        tableView.delegate = self
+        tableView.dataSource = self
     
-  var tweets: [Tweet]!
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // initialize tableView
-    tableView.delegate = self
-    tableView.dataSource = self
+        // fetch tweets
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+        })
     
-    // fetch tweets
-    TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-      self.tweets = tweets
-      self.tableView.reloadData()
-      
-    }, failure: { (error: Error) in
-      print(error.localizedDescription)
-    })
+        // initialize refreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
     
-    // initialize refreshControl
-    let refreshControl = UIRefreshControl()
-    refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
-    
-    // Add refreshControl to tableView
-    tableView.insertSubview(refreshControl, at: 0)
+        // Add refreshControl to tableView
+        tableView.insertSubview(refreshControl, at: 0)
     
     
-    sideBar = SideBar(sourceView: self.view, menuItems: Constants.menuItems)
-    sideBar.delegate = self
+        sideBar = SideBar(sourceView: self.view, menuItems: Constants.menuItems)
+        sideBar.delegate = self
   }
   
   
@@ -58,6 +58,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
       let detailVC = segue.destination as! DetailViewController
       detailVC.tweet = tweet
       
+    } else if segue.identifier == Constants.profileViewSegue {
+        if profileUser != nil {
+            let profileVC = segue.destination as! ProfileViewController
+            profileVC.isCurrentUserProfileTrue = false
+            profileVC.profileUser = profileUser!
+        } else {
+            print("Could not farword the request as profile user is nil")
+        }
     }
   }
   
@@ -70,7 +78,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tweetCellIdentifier, for: indexPath) as! TweetCell
     cell.tweet = tweets[indexPath.row]
-    
+    if cell.delegate == nil {
+        cell.delegate = self
+    }
     return cell
   }
   
@@ -107,10 +117,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         NavigationUtils.navigate(index: index, viewController: self)
     }
     
-    @IBAction func profileImageTapped(_ sender: UITapGestureRecognizer) {
-        
+    func handleProfileImageTap(tweet: Tweet) {
+        profileUser = tweet.user
+        self.performSegue(withIdentifier: Constants.profileViewSegue, sender: nil)
     }
-    
     
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController , UITableViewDelegate, UITableViewDataSource , SideBarDelegate, UIScrollViewDelegate{
+class ProfileViewController: UIViewController , UITableViewDelegate, UITableViewDataSource , SideBarDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
     private let kTableHeaderHight: CGFloat! =  300.0
     
     var screenName:String!
-    var isCurrentUserProfile: Bool = true
+    var isCurrentUserProfileTrue: Bool = true
     var profileUser: User!
     var sideBar: SideBar = SideBar()
     var tweets: [Tweet]!
@@ -65,14 +65,18 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
     
     func populateUserProfileData() {
         
-        if isCurrentUserProfile {
+        if isCurrentUserProfileTrue {
             // retrieve user info
             if let decodeData = UserDefaults.standard.data(forKey: Constants.currentUserKey),
                 let currUser = NSKeyedUnarchiver.unarchiveObject(with: decodeData) as? User {
                 populateDataFromUser(currUser: currUser)
             }
         } else {
-            populateDataFromUser(currUser: profileUser)
+            if profileUser != nil {
+                populateDataFromUser(currUser: profileUser)
+            } else {
+                print("profileUser is nil in ProfileViewController")
+            }
         }
     }
     

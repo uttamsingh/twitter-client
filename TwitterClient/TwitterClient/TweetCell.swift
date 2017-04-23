@@ -7,6 +7,10 @@
 //
 import UIKit
 
+@objc protocol TweetCellDelegate {
+    @objc optional func handleProfileImageTap(tweet: Tweet)
+}
+
 class TweetCell: UITableViewCell {
   
     @IBOutlet weak var profPicView: UIImageView!
@@ -26,35 +30,43 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var rtImage: UIImageView!
     @IBOutlet weak var rtTextLabel: UILabel!
     @IBOutlet weak var rtHolderView: UIView!
+   
+    var delegate:TweetCellDelegate?
     
   // Observer to update whenever Tweet changes
   var tweet: Tweet! {
     didSet{
-      tweetTextLabel.text = tweet.text!
-      timestamp.text = "\(tweet.timeAgo!)"
-      usernameLabel.text = tweet.user?.name!
-      handleLabel.text = "@\((tweet.user?.screenname)!)"
-      profPicView.setImageWith((tweet.user?.profileUrl)!)
-      rtCountLabel.text = tweet.rtCountStr
-      favCountLabel.text = tweet.favCountStr
-      profPicView.isUserInteractionEnabled = true
-      
+        tweetTextLabel.text = tweet.text!
+        timestamp.text = "\(tweet.timeAgo!)"
+        usernameLabel.text = tweet.user?.name!
+        handleLabel.text = "@\((tweet.user?.screenname)!)"
+        profPicView?.setImageWith((tweet.user?.profileUrl)!)
+        rtCountLabel.text = tweet.rtCountStr
+        favCountLabel.text = tweet.favCountStr
+        
+        let data = try? Data(contentsOf: (tweet.user?.profileUrl)!)
+        profPicButton?.setImage(UIImage(data: data!), for: .normal)
+        profPicButton?.imageView?.layer.cornerRadius = 5
+        profPicButton?.contentMode = .scaleAspectFill
+        profPicButton?.imageView?.clipsToBounds = true
+        profPicButton?.isUserInteractionEnabled = true
+        
         if tweet.rtCount > 0 {
             rtHolderView.isHidden = false
         } else {
             rtHolderView.isHidden = true
         }
         
-      if (!self.tweet.retweeted!) {
-       rtButton.setImage(UIImage(named: "retweet-icon"), for: .normal)
-      } else {
-       rtButton.setImage(UIImage(named: "retweet-icon-green"), for: .normal)
-      }
-      if (!self.tweet.faved!) {
-        favButton.setImage(UIImage(named: "favor-icon"), for: .normal)
-      } else {
-        favButton.setImage(UIImage(named: "favor-icon-red"), for: .normal)
-      }
+        if (!self.tweet.retweeted!) {
+            rtButton.setImage(UIImage(named: "retweet-icon"), for: .normal)
+        } else {
+            rtButton.setImage(UIImage(named: "retweet-icon-green"), for: .normal)
+        }
+        if (!self.tweet.faved!) {
+            favButton.setImage(UIImage(named: "favor-icon"), for: .normal)
+        } else {
+            favButton.setImage(UIImage(named: "favor-icon-red"), for: .normal)
+        }
     }
   }
   
@@ -128,9 +140,14 @@ class TweetCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    profPicView.layer.cornerRadius = 5
-    profPicView.clipsToBounds = true
+    profPicView?.layer.cornerRadius = 5
+    profPicView?.clipsToBounds = true
   }
+    
+    @IBAction func profileImageTapped(_ sender: Any) {
+        delegate?.handleProfileImageTap!(tweet: self.tweet)
+    }
+    
 }
 
 

@@ -38,6 +38,7 @@ struct Constants {
     static let tweetsToDetailSegue = "tweetsToDetailSegue"
     static let tweetsToLoginVCSegue = "TweetsToLoginVCSegue"
     static let newTweetsSegue = "NewTweetsSegue"
+    static let profileViewSegue = "profileViewSegue"
 
     
     // Icon and navigation constants
