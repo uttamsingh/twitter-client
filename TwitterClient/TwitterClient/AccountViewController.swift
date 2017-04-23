@@ -8,35 +8,36 @@
 
 import UIKit
 
-class AccountViewController: UIViewController , SideBarDelegate{
+class AccountViewController: UIViewController , SideBarDelegate, UITableViewDelegate, UITableViewDataSource{
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    var accounts: Array <User> = []
     var sideBar: SideBar = SideBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        // initialize tableView
+        tableView.delegate = self
+        tableView.dataSource = self
         
+        // Setting up side bar
         sideBar = SideBar(sourceView: self.view, menuItems: Constants.menuItems)
         sideBar.delegate = self
         self.view.backgroundColor = UIColor.white
+        
+        // Setup users account
+        accountSetup()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func accountSetup() {
+        // retrieve user info
+        if let decodeData = UserDefaults.standard.data(forKey: Constants.currentUserKey),
+            let currUser = NSKeyedUnarchiver.unarchiveObject(with: decodeData) as? User {
+            accounts.append(currUser)
+        }
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     func sideBarDidSelectButtonAtIndex(index: Int) {
         NavigationUtils.navigate(index: index, viewController: self)
@@ -46,4 +47,19 @@ class AccountViewController: UIViewController , SideBarDelegate{
         TwitterClient.sharedInstance?.logout()
         self.performSegue(withIdentifier: Constants.tweetsToLoginVCSegue, sender: nil)
     }
+}
+
+extension AccountViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accounts.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.accountCellIdentifier, for: indexPath) as! AccountViewCell
+        cell.currentUser = accounts[indexPath.row]
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
 }

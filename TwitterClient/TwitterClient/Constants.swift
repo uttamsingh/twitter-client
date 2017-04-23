@@ -28,6 +28,7 @@ struct Constants {
     // Tableview Cell
     static let replySegueFromTableViewCell = "replySegueFromTableViewCell"
     static let tweetCellIdentifier = "TweetCell"
+    static let accountCellIdentifier = "AccountCell"
  
     static let maxTweetCount = 140
     static let emptyString = ""

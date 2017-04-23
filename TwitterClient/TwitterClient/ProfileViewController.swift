@@ -19,13 +19,13 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var headerImage: UIImageView!
 
-    private let kTableHeaderHight: CGFloat! =  300.0
-    
+    private var headerHight: CGFloat! =  100.0
     var screenName:String!
     var isCurrentUserProfileTrue: Bool = true
     var profileUser: User!
     var sideBar: SideBar = SideBar()
     var tweets: [Tweet]!
+    var headerMastLayer: CAShapeLayer!
 //    var headerView: UIView!
     
     
@@ -43,15 +43,24 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
         
         addRefreshControl()
         populateUserProfileData()
+        tableViewHeaderEdgeInsetConfig()
         
     }
-
     
     func tableViewHeaderEdgeInsetConfig() {
-        //        self.headerView = tableView.tableHeaderView
-        //        self.tableView.contentInset = UIEdgeInsetsMake(kTableHeaderHight, 0, 0, 0)
-        //        self.tableView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHight)
-        //        updateHeaderView()
+        headerHight = headerImage.frame.height
+        self.tableView.contentInset = UIEdgeInsetsMake(headerHight, 0, 0, 0)
+        self.tableView.contentOffset = CGPoint(x: 0, y: 0)
+        updateHeaderView()
+    }
+    
+    func updateHeaderView() {
+        var headreRect = CGRect(x: 0, y: -headerHight, width: self.tableView.bounds.width, height: headerHight)
+        if self.tableView.contentOffset.y < -headerHight {
+            headreRect.origin.y = headerImage.frame.origin.y
+            headreRect.size.height = -self.tableView.contentOffset.y
+        }
+        self.headerImage.frame = headreRect
     }
     
     func addRefreshControl() {
@@ -102,18 +111,9 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
         })
     }
 
-//    func updateHeaderView() {
-//        var headreRect = CGRect(x: 0, y: -kTableHeaderHight, width: self.tableView.bounds.width, height: kTableHeaderHight)
-//        if self.tableView.contentOffset.y < -kTableHeaderHight {
-//            headreRect.origin.y = self.tableView.contentOffset.y
-//            headreRect.size.height = -self.tableView.contentOffset.y
-//        }
-//        headerView.frame = headreRect
-//    }
-//    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-////        updateHeaderView()
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateHeaderView()
+    }
     
     func refreshControlAction (refreshControl: UIRefreshControl) {
         TwitterClient.sharedInstance?.userTimeline(self.screenName , success: { (tweets: [Tweet]) in
@@ -128,31 +128,6 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
         self.tableView.reloadData()
         // Tell refreshControl to stop spinning
         refreshControl.endRefreshing()
-    }
-    
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweets?.count ?? 0
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tweetCellIdentifier, for: indexPath) as! TweetCell
-        cell.tweet = tweets[indexPath.row]
-        
-        return cell
-    }
-    
-    // Disable grey selection effect
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func sideBarDidSelectButtonAtIndex(index: Int) {
@@ -175,4 +150,24 @@ class ProfileViewController: UIViewController , UITableViewDelegate, UITableView
         TwitterClient.sharedInstance?.logout()
         self.performSegue(withIdentifier: Constants.tweetsToLoginVCSegue, sender: nil)
     }
+}
+
+
+extension ProfileViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets?.count ?? 0
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tweetCellIdentifier, for: indexPath) as! TweetCell
+        cell.tweet = tweets[indexPath.row]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
 }
