@@ -37,6 +37,7 @@ class TweetCell: UITableViewCell {
       profPicView.setImageWith((tweet.user?.profileUrl)!)
       rtCountLabel.text = tweet.rtCountStr
       favCountLabel.text = tweet.favCountStr
+      profPicView.isUserInteractionEnabled = true
       
         if tweet.rtCount > 0 {
             rtHolderView.isHidden = false
@@ -122,7 +123,7 @@ class TweetCell: UITableViewCell {
   }
   
     @IBAction func onReplyTap(_ sender: Any) {
-        
+     
     }
   
   override func awakeFromNib() {
@@ -130,8 +131,6 @@ class TweetCell: UITableViewCell {
     profPicView.layer.cornerRadius = 5
     profPicView.clipsToBounds = true
   }
-
-  
 }
 
 

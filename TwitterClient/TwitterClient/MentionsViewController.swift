@@ -23,8 +23,18 @@ class MentionsViewController: UIViewController , UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         
+        
+        // initialize refreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
+        
+        // Add refreshControl to tableView
+        tableView.insertSubview(refreshControl, at: 0)
+
+        
+        
         // fetch tweets
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance?.mentionsTimeLine(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
             
@@ -36,6 +46,27 @@ class MentionsViewController: UIViewController , UITableViewDelegate, UITableVie
         sideBar.delegate = self
         self.view.backgroundColor = UIColor.white
     }
+    
+    func refreshControlAction (refreshControl: UIRefreshControl) {
+        
+        // Re-request hometimeline data
+        TwitterClient.sharedInstance?.mentionsTimeLine(success: { (moreTweets: [Tweet]) in
+            for newTweet in moreTweets {
+                self.tweets.insert(newTweet, at: 0)
+                self.tweets.remove(at: (self.tweets.count - 1))
+                self.tableView.reloadData()
+            }
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+            
+        })
+        self.tableView.reloadData()
+        
+        // Tell refreshControl to stop spinning
+        refreshControl.endRefreshing()
+    }
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -106,5 +106,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func sideBarDidSelectButtonAtIndex(index: Int) {
         NavigationUtils.navigate(index: index, viewController: self)
     }
+    
+    @IBAction func profileImageTapped(_ sender: UITapGestureRecognizer) {
+        
+    }
+    
+    
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C4DAFDF48E333FF0FB750B3 /* Pods_TwitterClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC95963E1DEBCA77820A4D2 /* Pods_TwitterClient.framework */; };
+		9E3915D21EAC964B0076181B /* UserProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3915D11EAC964B0076181B /* UserProfileViewCell.swift */; };
 		9E586A8B1EAB2CFB005F8D72 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E586A8A1EAB2CFB005F8D72 /* SideBar.swift */; };
 		9E586A8D1EAB2D00005F8D72 /* SideBarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E586A8C1EAB2D00005F8D72 /* SideBarTableViewController.swift */; };
 		9ED4741D1EAB4278004F4BCD /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED4741C1EAB4278004F4BCD /* ColorUtils.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		1E810E5D64A4C83F55476988 /* Pods-TwitterClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterClient/Pods-TwitterClient.debug.xcconfig"; sourceTree = "<group>"; };
+		9E3915D11EAC964B0076181B /* UserProfileViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewCell.swift; sourceTree = "<group>"; };
 		9E586A8A1EAB2CFB005F8D72 /* SideBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		9E586A8C1EAB2D00005F8D72 /* SideBarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewController.swift; sourceTree = "<group>"; };
 		9ED4741C1EAB4278004F4BCD /* ColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				9EDE951B1EA2CAC9009E1256 /* TweetCell.swift */,
 				9EDE95221EA35278009E1256 /* DetailsViewCell.swift */,
+				9E3915D11EAC964B0076181B /* UserProfileViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				9E586A8D1EAB2D00005F8D72 /* SideBarTableViewController.swift in Sources */,
 				9EDE95211EA350DE009E1256 /* DetailViewController.swift in Sources */,
 				9ED474291EAB6859004F4BCD /* AccountViewController.swift in Sources */,
+				9E3915D21EAC964B0076181B /* UserProfileViewCell.swift in Sources */,
 				9ED474251EAB679B004F4BCD /* ErrorConstants.swift in Sources */,
 				9ED474271EAB684A004F4BCD /* MentionsViewController.swift in Sources */,
 				9EDE95231EA35278009E1256 /* DetailsViewCell.swift in Sources */,

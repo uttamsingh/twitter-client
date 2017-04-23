@@ -17,7 +17,7 @@ import UIKit
 
 class SideBar: NSObject, SideBarTableViewControllerDelegate {
     let barWidth:CGFloat = 150.0
-    let sideBarTableViewTopInsert:CGFloat = 64.0
+    var sideBarTableViewTopInsert:CGFloat = 64.0
     let sideBarContainerView:UIView = UIView()
     let sideBarTableViewController:SideBarTableViewController = SideBarTableViewController ()
     var originView:UIView!

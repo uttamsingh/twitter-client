@@ -41,7 +41,7 @@ struct Constants {
 
     
     // Icon and navigation constants
-    static let home:String = "Home"
+    static let home:String = "TimeLine"
     static let profile:String = "Profile"
     static let mentions:String = "Mentions"
     static let account:String = "Account"
@@ -51,5 +51,5 @@ struct Constants {
     static let mentionsIcon:String = "mentions-icon"
     static let accountIcon:String = "account-icon"
     
-    static let menuItems:Array<String> = [String](arrayLiteral: Constants.home, Constants.profile, Constants.mentions, Constants.account)
+    static let menuItems:Array<String> = [String](arrayLiteral: Constants.profile, Constants.home,  Constants.mentions, Constants.account)
 }
