@@ -1,3 +1,41 @@
+# CodePath Course Week 4 Project: Twitter Redux
+
+**Twitter Redux** is a basic twitter app to read and compose tweets the [Twitter API](http://api.twitter.com).
+
+Time spent: **25** hours spent in total
+
+## User Stories
+
+The following **required** functionality is completed:
+
+- [x] Hamburger menu
+    - [x] Dragging anywhere in the view should reveal the menu.
+    - [x] The menu should include links to your profile, the home timeline, and the mentions view.
+    - [x] The menu can look similar to the menu below or feel free to take liberty with the UI.
+
+- [x] Profile page
+    - [x] Contains the user header view.
+    - [x] Contains a section with the users basic stats: # tweets, # following, # followers.
+    - [x] Shows the user timeline.
+- [x] Home Timeline
+    - [x] apping on a user image should bring up that user's profile page.
+
+
+- [x] Optional
+    - [x]  Pulling down the profile page should blur and resize the header image. (high)
+
+
+Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
+
+1. Streching header - best way to implement
+2. More on gestures/gravity/velocity
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='https://github.com/uttamsingh/twitter-client/blob/master/TwitterClient/twitter-redux.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 # CodePath Course Week 3 Project: Twitter Client
 
